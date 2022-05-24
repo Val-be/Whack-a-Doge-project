@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Whack-a-Doge</title>
+    <link rel="stylesheet" href="/styles/style.css" />
+</head>
+
+<body>
+    <header>
+        <h1>Whack-a-Doge</h1>
+    </header>
+    <main>
+        <div class="grid"></div>
+        <section id="rules">
+            <h2>Rules</h2>
+            <p>
+                To play, click the start button.<br> Whack a maximum of Doges before time runs out!
+            </p>
+            <button id="start">Start</button><button id="pause">Pause</button><button id="reset">Reset</button>
+            <div>Score : <span id="score">00</span></div>
+            <section id="clock">
+                <div id="sphere">
+                    <span id="minDec" class="number">0</span>
+                    <span id="minUni" class="number">0</span>
+                    <span>:</span>
+                    <span id="secDec" class="number">0</span>
+                    <span id="secUni" class="number">0</span>
+                </div>
+            </section>
+        </section>
+    </main>
+    <footer>
+        <p>
+        </p>
+    </footer>
+    <audio id="bonk" src="/audio/Bonk - Sound Effect (HD).mp3"></audio>
+    <audio id="pop" src="/audio/sound-effect-bottle-cork.mp3"></audio>
+    <script src="./js/main.js"></script>
+    <script src="/js/index.js"></script>
+</body>
+
+</html>
