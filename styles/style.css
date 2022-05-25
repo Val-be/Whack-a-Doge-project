@@ -1,6 +1,22 @@
+@font-face {
+    font-family: 'Digi';
+    src: url('fonts/ds-digib.ttf');
+}
+
+@font-face {
+    font-family: 'Arcade';
+    src: url("/styles/Fonts/ARCADECLASSIC.TTF");
+}
+
 * {
     box-sizing: border-box;
 }
+
+h2 {
+    font-size: 10rem;
+    color: red;
+}
+
 
 body {
     background-color: #76cb95;
@@ -13,6 +29,7 @@ body {
     margin: 0;
     padding: 0;
     color: white;
+    font-family: "Arcade";
 }
 
 h1,
@@ -27,6 +44,7 @@ main {
     display: flex;
     /* justify-content: space-between; */
     text-align: center;
+    gap: 5vw;
 }
 
 main {
@@ -43,7 +61,14 @@ header {
     align-items: center;
 }
 
-button {
+#user-interface {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5vh;
+}
+
+/* button {
     border: none;
     background: blue;
     color: white;
@@ -54,6 +79,61 @@ button {
 button:hover {
     background-color: red;
     cursor: pointer;
+} */
+
+.button {
+    float: left;
+    position: relative;
+    top: 0;
+    cursor: pointer;
+    background: white;
+    border-radius: 3px;
+    box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
+    margin: 0 7px 11px 0;
+    color: #888;
+    
+    text-align: center;
+}
+
+button {
+    background: #7a7474da;
+    box-shadow: 0px 5px #7a74746d;
+    color: white;
+    width: 10vw;
+    height: 5vh;
+}
+
+button:hover {
+    background: #7a747491;
+    box-shadow: 0px 4px #7a747400;
+    color: white;
+}
+
+/* Imitate a pressed effect for buttons */
+button:active {
+    top: 4px;
+    box-shadow: 0px 0px #d3545d;
+}
+
+#timer {
+    font-family: "Digi";
+    font-size: 3rem;
+    width: 15vw;
+    color: red;
+    background-color: black;
+}
+
+#score-tracker {
+    font-family: "Digi";
+    font-size: 3rem;
+    width: 15vw;
+    color: red;
+    background-color: black;
+}
+
+#digital-screen {
+    border: 5px solid lightgray;
+    border-radius: 5px;
 }
 
 footer {
@@ -81,10 +161,6 @@ footer {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-}
-
-#rules {
-    justify-self: flex-end;
 }
 
 .player-facing-right {
@@ -127,7 +203,7 @@ footer {
     from {
         transform: rotate(0deg)
     }
-
+    
     to {
         transform: rotate(120deg);
     }
@@ -152,4 +228,45 @@ footer {
 
 .bonked-doge-hole {
     background-image: url('/images/bonked-doge-hole.png');
+}
+
+#victory-screen {
+    display: none;
+    width:100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 1;
+    background-color: #3c97c9a4;
+    text-align: center;
+}
+
+#defeat-screen {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 1;
+    background-color: #3c97c9a4;
+    text-align: center;
+}
+
+.victorious-cheems {
+    width: 20vw;
+}
+
+.defeated-cheems {
+    width: 15vw;
+}
+
+.defeated-doge {
+    width: 15vw;
+}
+
+.victorious-doge {
+    width: 15vw;
+    margin-left: 4rem;
+}
+
+.end-screen-text {
+    font-size: 2rem;
 }

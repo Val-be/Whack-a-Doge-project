@@ -109,7 +109,7 @@ class Player {
   }
 
   canMove(direction) {
-    if (!game.isPaused) {
+    if (!game.isPaused && game.isStarted) {
       let index = parseInt(this.cell.dataset.index);
       switch (direction) {
         case "up":
@@ -235,6 +235,7 @@ class MoleHole {
     this.className = "empty-hole";
     this.cell = null;
     this.countainsMole = false;
+    this.isGenerating = false;
     this.generator = null;
   }
 
@@ -291,6 +292,7 @@ class MoleHole {
 
   startGenerating() {
     let time = 0;
+    this.isGenerating = true;
     this.generator = setInterval(() => {
       time += 1;
       if (!game.isPaused) {
@@ -318,6 +320,7 @@ class MoleHole {
   }
 
   stopGenerating() {
+    this.isGenerating = false;
     clearInterval(this.generator);
   }
 }
@@ -329,7 +332,7 @@ class Timer {
   }
 
   startCountingDown() {
-    this.timeRemaining = 120;
+    this.timeRemaining = 60;
     let ticks = 0;
     this.interval = setInterval(() => {
       if (!game.isPaused && game.isStarted && !game.isFinished) {
@@ -405,25 +408,31 @@ class Game {
     this.isFinished = false;
     this.isLost = false;
     this.isWon = false;
-    delayedStart(moleHoles);
     // moleHoles.forEach((instance) => {
     //   instance.startGenerating();
     // });
+    delayedStart(moleHoles);
     timer.startCountingDown();
+    startButton.textContent = "Reset";
+    backgroundMusic.play();
   }
 
   pause() {
-    if (this.isPaused) {
-      this.isPaused = false;
-      pauseButton.textContent = "Pause";
-    } else {
-      this.isPaused = true;
-      pauseButton.textContent = "Resume";
+    if (this.isStarted) {
+      if (this.isPaused) {
+        this.isPaused = false;
+        pauseButton.textContent = "Pause";
+        backgroundMusic.play();
+      } else {
+        this.isPaused = true;
+        pauseButton.textContent = "Resume";
+        backgroundMusic.pause();
+      }
     }
   }
 
   displayScore() {
-    scoreCounter.textContent = game.score.toString().padStart(3, "0");
+    scoreCounter.textContent = game.score.toString().padStart(2, "0");
   }
 
   stop() {}
@@ -436,6 +445,7 @@ class Game {
     }
     if (this.isWon) {
       console.log("You won!");
+      victoryScreen.style.display = "block";
     } else {
       console.log("You lose!");
     }
@@ -449,7 +459,7 @@ class Game {
       instance.stopGenerating();
       instance.hide();
     });
-    moleHoles = [];
+    moleHoles.splice(0);
     this.isStarted = false;
     this.isPaused = false;
     this.score = 0;
@@ -458,6 +468,9 @@ class Game {
     player.hide();
     player.getStartingCell();
     player.show();
+    startButton.textContent = "Start";
+    backgroundMusic.pause();
+    backgroundMusic.currentTime = 0;
   }
 }
 
@@ -471,7 +484,19 @@ function fisherYatesShuffle(arr) {
 }
 
 function getRandomSelection(n, array) {
-  const cloned = Array.from(array);
+  // const cloned = Array.from(array);
+  const cloned = array.filter((cell) => {
+    if (
+      cell.dataset.index === 0 ||
+      cell.dataset.index === 1 ||
+      cell.dataset.index === board.width
+    ) {
+      return false;
+    }
+    if (cell.dataset.index % 2 === 0) {
+      return true;
+    }
+  });
   fisherYatesShuffle(cloned);
   const selected = cloned.slice(0, n);
   return selected;
@@ -490,17 +515,27 @@ function distributeHoles() {
 }
 
 function delayedStart(holes) {
-  holes.forEach((instance) => {
-    let rgn = parseInt(1000 + Math.floor(Math.random() * 2000));
-    setTimeout(() => {
-      if (game.isStarted) {
-        instance.startGenerating();
-      } else {
-        holes.forEach((item) => {
-          item.stopGenerating();
-          item.hide();
-        });
-      }
-    }, rgn);
-  });
+  //   holes.forEach((instance) => {
+  //     let rgn = parseInt(1000 + Math.floor(Math.random() * 2000));
+  //     setTimeout(() => {
+  //       if (!game.isStarted) {
+  //         instance.startGenerating();
+  //       }
+  //     }, rgn);
+  //   });
+  let ticks = 0;
+  let index = 0;
+  const interval = setInterval(() => {
+    let number = Math.floor(Math.random() * 100);
+    if (number <= 90) {
+      ticks++;
+    }
+    if (ticks % 50 === 0) {
+      moleHoles[index].startGenerating();
+      index++;
+    }
+    if (!game.isStarted || index === moleHoles.length) {
+      clearInterval(interval);
+    }
+  }, 10);
 }

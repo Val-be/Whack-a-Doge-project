@@ -10,33 +10,48 @@
 </head>
 
 <body>
-    <header>
-        <h1>Whack-a-Doge</h1>
-    </header>
+    <section id="victory-screen">
+        <h2>YOU WIN !</h2>
+        <p class="end-screen-text">The Doges have been safely driven from your frontyard</p>
+        <img src="/images/cheemsRight.png" class="victorious-cheems" alt="victorious-cheems"/><img src="/images/7- sad.png" class="defeated-doge" alt="defeated-doge" />
+    </section>
+    <section id="defeat-screen">
+        <h2>YOU LOSE !</h2>
+        <p class="end-screen-text">The Doges have overrun your frontyard despite your best efforts</p>
+        <img src="/images/11 - Sad cheems.png" class="defeated-cheems" alt="defeated-cheems" /><img src="/images/doge smirk.png" class="victorious-doge" alt="victorious-doge" />
+    </section>
     <main>
         <div class="grid"></div>
-        <section id="rules">
-            <h2>Rules</h2>
-            <p>
-                To play, click the start button.<br> Whack a maximum of Doges before time runs out!
-            </p>
-            <button id="start">Start</button><button id="pause">Pause</button><button id="reset">Reset</button>
-            <div>Score : <span id="score">00</span></div>
-            <section id="clock">
-                <div id="sphere">
-                    <span id="minDec" class="number">0</span>
-                    <span id="minUni" class="number">0</span>
-                    <span>:</span>
-                    <span id="secDec" class="number">0</span>
-                    <span id="secUni" class="number">0</span>
-                </div>
+        <section id="user-interface">
+            <section id="digital-screen">
+                <section id="score-tracker">Score : <span id="score">00</span></section>
+                <section id="timer">
+                    <div id="sphere">
+                        <span id="minDec" class="number">0</span>
+                        <span id="minUni" class="number">0</span>
+                        <span>:</span>
+                        <span id="secDec" class="number">0</span>
+                        <span id="secUni" class="number">0</span>
+                    </div>
+                </section>
             </section>
+            <section id="buttons">
+                <button id="start" class="button">Start</button><button id="pause" class="button">Pause</button>
+            </section>
+            <section id="rules">
+                <h3>Rules</h3>
+                <p>
+                    To play, click the start button.<br> Whack a maximum of Doges before time runs out!
+                </p>
+            </section>
+            
         </section>
     </main>
     <footer>
         <p>
         </p>
     </footer>
+    <audio id="background-music" src="/audio/shovel-knight-ost-strike-the-earth-plains-of-passage.mp3"></audio>
     <audio id="bonk" src="/audio/Bonk - Sound Effect (HD).mp3"></audio>
     <audio id="pop" src="/audio/sound-effect-bottle-cork.mp3"></audio>
     <script src="./js/main.js"></script>
