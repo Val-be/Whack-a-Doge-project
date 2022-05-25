@@ -332,7 +332,7 @@ class Timer {
   }
 
   startCountingDown() {
-    this.timeRemaining = 60;
+    this.timeRemaining = 15;
     let ticks = 0;
     this.interval = setInterval(() => {
       if (!game.isPaused && game.isStarted && !game.isFinished) {
@@ -414,7 +414,9 @@ class Game {
     delayedStart(moleHoles);
     timer.startCountingDown();
     startButton.textContent = "Reset";
-    backgroundMusic.play();
+    if (this.soundIsActive) {
+      backgroundMusic.play();
+    }
   }
 
   pause() {
@@ -422,11 +424,11 @@ class Game {
       if (this.isPaused) {
         this.isPaused = false;
         pauseButton.textContent = "Pause";
-        backgroundMusic.play();
+        // backgroundMusic.play();
       } else {
         this.isPaused = true;
         pauseButton.textContent = "Resume";
-        backgroundMusic.pause();
+        // backgroundMusic.pause();
       }
     }
   }
@@ -445,9 +447,26 @@ class Game {
     }
     if (this.isWon) {
       console.log("You won!");
-      victoryScreen.style.display = "block";
+      victoryScreen.style.display = "flex";
+      if (game.soundIsActive) {
+        victoryFanfare.play();
+      }
+      setTimeout(() => {
+        victoryScreen.style.display = "none";
+        victoryFanfare.pause();
+        victoryFanfare.currentTime = 0;
+      }, 30000);
     } else {
       console.log("You lose!");
+      defeatScreen.style.display = "flex";
+      if (game.soundIsActive) {
+        defeatFanfare.play();
+      }
+      setTimeout(() => {
+        defeatScreen.style.display = "none";
+        defeatFanfare.pause();
+        defeatFanfare.currentTime = 0;
+      }, 30000);
     }
     this.reset();
   }
@@ -463,6 +482,7 @@ class Game {
     this.isStarted = false;
     this.isPaused = false;
     this.score = 0;
+    this.totalMoles = 0;
     this.displayScore();
     pauseButton.textContent = "Pause";
     player.hide();

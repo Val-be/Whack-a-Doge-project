@@ -10,15 +10,20 @@
 </head>
 
 <body>
+    <button id="mute" class="button audio"></button>
     <section id="victory-screen">
         <h2>YOU WIN !</h2>
         <p class="end-screen-text">The Doges have been safely driven from your frontyard</p>
-        <img src="/images/cheemsRight.png" class="victorious-cheems" alt="victorious-cheems"/><img src="/images/7- sad.png" class="defeated-doge" alt="defeated-doge" />
+        <div><img src="/images/cheemsRight.png" class="victorious-cheems" alt="victorious-cheems"/><img src="/images/7- sad.png" class="defeated-doge" alt="defeated-doge" />
+        </div>
+        <button id="play-again" class="button">Play again</button>
     </section>
     <section id="defeat-screen">
         <h2>YOU LOSE !</h2>
         <p class="end-screen-text">The Doges have overrun your frontyard despite your best efforts</p>
-        <img src="/images/11 - Sad cheems.png" class="defeated-cheems" alt="defeated-cheems" /><img src="/images/doge smirk.png" class="victorious-doge" alt="victorious-doge" />
+        <div><img src="/images/11 - Sad cheems.png" class="defeated-cheems" alt="defeated-cheems" /><img src="/images/doge smirk.png" class="victorious-doge" alt="victorious-doge" />
+        </div>
+        <button id="try-again" class="button">Try again</button>
     </section>
     <main>
         <div class="grid"></div>
@@ -37,12 +42,19 @@
             </section>
             <section id="buttons">
                 <button id="start" class="button">Start</button><button id="pause" class="button">Pause</button>
+                
             </section>
             <section id="rules">
                 <h3>Rules</h3>
-                <p>
-                    To play, click the start button.<br> Whack a maximum of Doges before time runs out!
-                </p>
+                <ul class="rule-list">
+                    <li>To play, click the start button.</li>
+                    <br>
+                    <li>Use <img/> to move</li>
+                    <br>
+                    <li>Use <img/> to swing your bat</li>
+                    <br>
+                    <li>Whack a maximum of Doges before time runs out!</li>
+                </ul>
             </section>
             
         </section>
@@ -51,6 +63,8 @@
         <p>
         </p>
     </footer>
+    <audio id="victory-fanfare" src="/audio/victory-fanfare.mp3"></audio>
+    <audio id="defeat-fanfare" src="/audio/defeat-audio.mp3"></audio>
     <audio id="background-music" src="/audio/shovel-knight-ost-strike-the-earth-plains-of-passage.mp3"></audio>
     <audio id="bonk" src="/audio/Bonk - Sound Effect (HD).mp3"></audio>
     <audio id="pop" src="/audio/sound-effect-bottle-cork.mp3"></audio>

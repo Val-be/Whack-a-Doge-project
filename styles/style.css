@@ -8,6 +8,11 @@
     src: url("/styles/Fonts/ARCADECLASSIC.TTF");
 }
 
+@font-face {
+    font-family: "Atari";
+    src: url("/styles/Fonts/SF\ Atarian\ System.ttf");
+}
+
 * {
     box-sizing: border-box;
 }
@@ -81,6 +86,7 @@ button:hover {
     cursor: pointer;
 } */
 
+
 .button {
     float: left;
     position: relative;
@@ -91,7 +97,9 @@ button:hover {
     box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
     margin: 0 7px 11px 0;
     color: #888;
-    
+    font-family: "Atari";
+    font-size: 2rem;
+    color: black;
     text-align: center;
 }
 
@@ -115,6 +123,30 @@ button:active {
     box-shadow: 0px 0px #d3545d;
 }
 
+#mute {
+    position: fixed;
+    margin-top: 3vh;
+    margin-left: 3vw;
+}
+
+.audio {
+    width: 3vw;
+    height: 5vh;
+    background-image: url("/images/768px-Speaker_Icon.svg.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.muted {
+    width: 3vw;
+    height: 5vh;
+    background-image: url("/images/icone-de-haut-parleur-muet-noir.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 #timer {
     font-family: "Digi";
     font-size: 3rem;
@@ -134,6 +166,18 @@ button:active {
 #digital-screen {
     border: 5px solid lightgray;
     border-radius: 5px;
+}
+
+#rules {
+    background-color: rgba(99, 202, 213, 0.764);
+    border: 5px solid gold;
+    border-radius: 5px;
+}
+
+li {
+    text-align: left;
+    list-style: "";
+    font-size: 1.5rem;
 }
 
 footer {
@@ -232,6 +276,9 @@ footer {
 
 #victory-screen {
     display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width:100vw;
     height: 100vh;
     position: fixed;
@@ -240,8 +287,12 @@ footer {
     text-align: center;
 }
 
+
 #defeat-screen {
     display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100vw;
     height: 100vh;
     position: fixed;
