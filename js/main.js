@@ -332,7 +332,7 @@ class Timer {
   }
 
   startCountingDown() {
-    this.timeRemaining = 15;
+    this.timeRemaining = 60;
     let ticks = 0;
     this.interval = setInterval(() => {
       if (!game.isPaused && game.isStarted && !game.isFinished) {

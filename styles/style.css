@@ -169,15 +169,29 @@ button:active {
 }
 
 #rules {
-    background-color: rgba(99, 202, 213, 0.764);
+    width: 20vw;
+    background-color: rgba(99, 202, 213, 0.888);
     border: 5px solid gold;
     border-radius: 5px;
+    letter-spacing: 3px;
+}
+
+h3 {
+    font-size: 2.5rem;
 }
 
 li {
     text-align: left;
-    list-style: "";
+    list-style: "-";
     font-size: 1.5rem;
+}
+
+.wasd-keys-icon {
+    width: 2vw;
+}
+
+.enter-key-icon {
+    width: 1.5vw;
 }
 
 footer {
@@ -274,6 +288,46 @@ footer {
     background-image: url('/images/bonked-doge-hole.png');
 }
 
+#start-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 1;
+    background-color: rgba(211, 211, 211, 0.803);
+    text-align: center;
+    letter-spacing: 3px;
+}
+
+h1 {
+    font-size: 10rem;
+    color: gold;
+}
+
+#start-screen h2 {
+    font-size: 2rem;
+}
+
+#start-screen p {
+    font-size: 3rem;
+    animation: blink-animation 1s steps(5, start) infinite;
+}
+
+@keyframes blink-animation {
+    to {
+        visibility: hidden;
+    }
+}
+
+@-webkit-keyframes blink-animation {
+    to {
+        visibility: hidden;
+    }
+}
+
 #victory-screen {
     display: none;
     flex-direction: column;
@@ -285,6 +339,7 @@ footer {
     z-index: 1;
     background-color: #3c97c9a4;
     text-align: center;
+    letter-spacing: 3px;
 }
 
 
@@ -299,6 +354,7 @@ footer {
     z-index: 1;
     background-color: #3c97c9a4;
     text-align: center;
+    letter-spacing: 3px;
 }
 
 .victorious-cheems {

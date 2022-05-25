@@ -1,20 +1,29 @@
+//Buttons
 const startButton = document.querySelector("button#start");
 const pauseButton = document.querySelector("button#pause");
 const playAgain = document.querySelector("#play-again");
 const tryAgain = document.querySelector("#try-again");
 const audioButton = document.querySelector("#mute");
-// const resetButton = document.querySelector("button#reset");
+const playButton = document.querySelector("#play");
+
+//Display
 const scoreCounter = document.querySelector("#score");
 const minDecElement = document.getElementById("minDec");
 const minUniElement = document.getElementById("minUni");
 const secDecElement = document.getElementById("secDec");
 const secUniElement = document.getElementById("secUni");
+const startScreen = document.querySelector("#start-screen");
+const victoryScreen = document.querySelector("#victory-screen");
+const defeatScreen = document.querySelector("#defeat-screen");
+
+//Audio
 const backgroundMusic = document.querySelector("#background-music");
 backgroundMusic.volume = 0.25;
-const victoryScreen = document.querySelector("#victory-screen");
 const victoryFanfare = document.querySelector("#victory-fanfare");
-const defeatScreen = document.querySelector("#defeat-screen");
 const defeatFanfare = document.querySelector("#defeat-fanfare");
+const buttonClick = document.querySelector("#button-click");
+
+//Instancing
 const board = new GameBoard(9, 5);
 const player = new Player();
 const game = new Game();
@@ -23,16 +32,21 @@ const moleHoles = [];
 player.getStartingCell();
 player.show();
 
+//Event listeners
 startButton.addEventListener("click", () => {
   if (!game.isStarted) {
     game.start();
   } else {
     game.reset();
   }
+  buttonClick.play();
+  buttonClick.currentTime = 0;
 });
 
 pauseButton.addEventListener("click", () => {
   game.pause();
+  buttonClick.play();
+  buttonClick.currentTime = 0;
 });
 
 playAgain.addEventListener("click", () => {
@@ -41,6 +55,8 @@ playAgain.addEventListener("click", () => {
     victoryFanfare.pause();
     victoryFanfare.currentTime = 0;
   }
+  buttonClick.play();
+  buttonClick.currentTime = 0;
 });
 
 tryAgain.addEventListener("click", () => {
@@ -49,6 +65,8 @@ tryAgain.addEventListener("click", () => {
     defeatFanfare.pause();
     defeatFanfare.currentTime = 0;
   }
+  buttonClick.play();
+  buttonClick.currentTime = 0;
 });
 
 audioButton.addEventListener("click", () => {
@@ -67,11 +85,9 @@ audioButton.addEventListener("click", () => {
       backgroundMusic.play();
     }
   }
+  buttonClick.play();
+  buttonClick.currentTime = 0;
 });
-
-// resetButton.addEventListener("click", () => {
-//   game.reset();
-// });
 
 document.addEventListener("keydown", (event) => {
   event.preventDefault();
@@ -94,4 +110,10 @@ document.addEventListener("keydown", (event) => {
     default:
       return;
   }
+});
+
+playButton.addEventListener("click", () => {
+  startScreen.style.display = "none";
+  buttonClick.play();
+  buttonClick.currentTime = 0;
 });
