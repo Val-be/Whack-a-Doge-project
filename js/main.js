@@ -6,6 +6,7 @@ class GameBoard {
     this.cells = this._createCells();
   }
 
+  //Creates the cells of the game board
   _createCells() {
     this.element = document.querySelector(".grid");
     const cellArray = [];
@@ -27,10 +28,13 @@ class Player {
     this.facedDirection = "right";
   }
 
+  //Starting cell is the top left one
   getStartingCell() {
     this.cell = board.cells[0];
   }
 
+  //Adds a class to the cell the player is in to show it
+  //Display depends on the direction the player is facing
   show() {
     this.cell.classList.add(this.className);
     if (
@@ -52,6 +56,7 @@ class Player {
     }
   }
 
+  //Opposite of the add() method
   hide() {
     switch (this.facedDirection) {
       case "right":
@@ -66,6 +71,7 @@ class Player {
     this.cell.classList.remove(this.className);
   }
 
+  //Changes the direction the player is facing
   changeFacedDirection(direction) {
     switch (direction) {
       case "right":
@@ -78,6 +84,10 @@ class Player {
     }
   }
 
+  //Hides the player
+  //Changes the index of the player on the grid
+  //Show the player on its new position
+  //Movement is conditionned by the canMove() method
   move(direction) {
     this.hide();
     let index = parseInt(this.cell.dataset.index);
@@ -328,11 +338,11 @@ class MoleHole {
 class Timer {
   constructor() {
     this.interval = null;
-    this.timeRemaining = 0;
+    this.timeRemaining = parseInt(game.timeLimit);
   }
 
   startCountingDown() {
-    this.timeRemaining = 60;
+    // this.timeRemaining = parseInt(game.timeLimit);
     let ticks = 0;
     this.interval = setInterval(() => {
       if (!game.isPaused && game.isStarted && !game.isFinished) {
@@ -381,7 +391,7 @@ class Timer {
   reset() {
     clearInterval(this.interval);
     this.interval = null;
-    this.timeRemaining = 0;
+    this.timeRemaining = parseInt(game.timeLimit);
   }
 }
 
@@ -400,6 +410,10 @@ class Game {
     this.isWon = null;
 
     this.isFinished = null;
+
+    this.difficultySetting = "easy";
+
+    this.timeLimit = 30;
   }
 
   start() {
@@ -442,7 +456,7 @@ class Game {
   onFinish() {
     this.isFinished = true;
     let ratio = parseInt((this.score * 100) / this.totalMoles);
-    if (ratio >= 50) {
+    if (ratio >= 70) {
       this.isWon = true;
     }
     if (this.isWon) {
@@ -507,13 +521,15 @@ function getRandomSelection(n, array) {
   // const cloned = Array.from(array);
   const cloned = array.filter((cell) => {
     if (
-      cell.dataset.index === 0 ||
-      cell.dataset.index === 1 ||
-      cell.dataset.index === board.width
+      parseInt(cell.dataset.index) === 0 ||
+      parseInt(cell.dataset.index) === board.width + 1 ||
+      parseInt(cell.dataset.index) === board.width - 1 ||
+      parseInt(cell.dataset.index) === board.width * board.height - 1 ||
+      parseInt(cell.dataset.index) === board.width * (board.height - 1)
     ) {
       return false;
     }
-    if (cell.dataset.index % 2 === 0) {
+    if (parseInt(cell.dataset.index) % 2 === 0) {
       return true;
     }
   });
@@ -524,8 +540,20 @@ function getRandomSelection(n, array) {
 
 function distributeHoles() {
   if (!game.isStarted) {
-    const selection = getRandomSelection(6, board.cells);
-    for (let i = 0; i < 6; i++) {
+    let nbOfHoles = 0;
+    switch (game.difficultySetting) {
+      case "easy":
+        nbOfHoles = 6;
+        break;
+      case "medium":
+        nbOfHoles = 7;
+        break;
+      case "hard":
+        nbOfHoles = 8;
+        break;
+    }
+    const selection = getRandomSelection(nbOfHoles, board.cells);
+    for (let i = 0; i < nbOfHoles; i++) {
       let hole = new MoleHole();
       hole.cell = selection[i];
       moleHoles.push(hole);

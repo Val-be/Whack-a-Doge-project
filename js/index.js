@@ -5,6 +5,12 @@ const playAgain = document.querySelector("#play-again");
 const tryAgain = document.querySelector("#try-again");
 const audioButton = document.querySelector("#mute");
 const playButton = document.querySelector("#play");
+const easyButton = document.querySelector("#easy");
+const mediumButton = document.querySelector("#medium");
+const hardButton = document.querySelector("#hard");
+const time30sButton = document.querySelector("#time30s");
+const time60sButton = document.querySelector("#time60s");
+const time90sButton = document.querySelector("#time90s");
 
 //Display
 const scoreCounter = document.querySelector("#score");
@@ -15,6 +21,8 @@ const secUniElement = document.getElementById("secUni");
 const startScreen = document.querySelector("#start-screen");
 const victoryScreen = document.querySelector("#victory-screen");
 const defeatScreen = document.querySelector("#defeat-screen");
+const title = document.querySelector("#title");
+const credit = document.querySelector("#credit");
 
 //Audio
 const backgroundMusic = document.querySelector("#background-music");
@@ -22,12 +30,14 @@ backgroundMusic.volume = 0.25;
 const victoryFanfare = document.querySelector("#victory-fanfare");
 const defeatFanfare = document.querySelector("#defeat-fanfare");
 const buttonClick = document.querySelector("#button-click");
+const playSfx = document.querySelector("#play-sfx");
 
 //Instancing
 const board = new GameBoard(9, 5);
 const player = new Player();
 const game = new Game();
 const timer = new Timer();
+timer.printTime();
 const moleHoles = [];
 player.getStartingCell();
 player.show();
@@ -89,6 +99,92 @@ audioButton.addEventListener("click", () => {
   buttonClick.currentTime = 0;
 });
 
+playButton.addEventListener("click", () => {
+  title.classList.add("fly");
+  credit.classList.add("fly");
+  setTimeout(() => {
+    title.style.visibility = "hidden";
+    credit.style.visibility = "hidden";
+  }, 490);
+  setTimeout(() => {
+    startScreen.style.display = "none";
+  }, 2000);
+  playSfx.play();
+  playSfx.currentTime = 0;
+});
+
+easyButton.addEventListener("click", () => {
+  if (!game.isStarted) {
+    game.difficultySetting = "easy";
+    easyButton.classList.add("set-pushed");
+    mediumButton.classList.remove("set-pushed");
+    hardButton.classList.remove("set-pushed");
+    buttonClick.play();
+    buttonClick.currentTime = 0;
+  }
+});
+
+mediumButton.addEventListener("click", () => {
+  if (!game.isStarted) {
+    game.difficultySetting = "medium";
+    mediumButton.classList.add("set-pushed");
+    easyButton.classList.remove("set-pushed");
+    hardButton.classList.remove("set-pushed");
+    buttonClick.play();
+    buttonClick.currentTime = 0;
+  }
+});
+
+hardButton.addEventListener("click", () => {
+  if (!game.isStarted) {
+    game.difficultySetting = "hard";
+    hardButton.classList.add("set-pushed");
+    mediumButton.classList.remove("set-pushed");
+    easyButton.classList.remove("set-pushed");
+    buttonClick.play();
+    buttonClick.currentTime = 0;
+  }
+});
+
+time30sButton.addEventListener("click", () => {
+  if (!game.isStarted) {
+    game.timeLimit = 30;
+    timer.timeRemaining = 30;
+    timer.printTime();
+    time30sButton.classList.add("set-pushed");
+    time60sButton.classList.remove("set-pushed");
+    time90sButton.classList.remove("set-pushed");
+    buttonClick.play();
+    buttonClick.currentTime = 0;
+  }
+});
+
+time60sButton.addEventListener("click", () => {
+  if (!game.isStarted) {
+    game.timeLimit = 60;
+    timer.timeRemaining = 60;
+    timer.printTime();
+    time60sButton.classList.add("set-pushed");
+    time30sButton.classList.remove("set-pushed");
+    time90sButton.classList.remove("set-pushed");
+    buttonClick.play();
+    buttonClick.currentTime = 0;
+  }
+});
+
+time90sButton.addEventListener("click", () => {
+  if (!game.isStarted) {
+    game.timeLimit = 90;
+    timer.timeRemaining = 90;
+    timer.printTime();
+    time90sButton.classList.add("set-pushed");
+    time60sButton.classList.remove("set-pushed");
+    time30sButton.classList.remove("set-pushed");
+    buttonClick.play();
+    buttonClick.currentTime = 0;
+  }
+});
+
 document.addEventListener("keydown", (event) => {
   event.preventDefault();
   switch (event.code) {
@@ -110,10 +206,4 @@ document.addEventListener("keydown", (event) => {
     default:
       return;
   }
-});
-
-playButton.addEventListener("click", () => {
-  startScreen.style.display = "none";
-  buttonClick.play();
-  buttonClick.currentTime = 0;
 });

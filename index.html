@@ -7,13 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Whack-a-Doge</title>
     <link rel="stylesheet" href="/styles/style.css" />
+    <link rel="icon" href="/images/bat-right.png"/>
 </head>
 
 <body>
     <button id="mute" class="button audio"></button>
     <section id="start-screen">
-        <h1>Whack-a-Doge</h1>
-        <h2>by Valerian Belin</h2>
+        <h1 id="title">Whack-a-D<img src="/images/doge-hole-with-doge.png" class="title-doge" alt="doge-hole">ge</h1>
+        <h2 id="credit">by Valerian Belin</h2>
         <p>please insert Dogecoin</p>
         <button id="play" class="button">Play</button>
     </section>
@@ -35,7 +36,7 @@
         <div class="grid"></div>
         <section id="user-interface">
             <section id="digital-screen">
-                <section id="score-tracker">Score : <span id="score">00</span></section>
+                <section id="score-tracker">Bonks : <span id="score">00</span></section>
                 <section id="timer">
                     <div id="sphere">
                         <span id="minDec" class="number">0</span>
@@ -48,12 +49,20 @@
             </section>
             <section id="buttons">
                 <button id="start" class="button">Start</button><button id="pause" class="button">Pause</button>
-                
+            </section>
+            <section id="difficuly-settings">
+                <button id="easy" class="set set-pushed">Easy</button><button id="medium" class="set">Medium</button><button id="hard" class="set">Hard</button>
+            </section>
+            <section id="difficuly-settings">
+                <button id="time30s" class="set set-pushed">30s</button><button id="time60s" class="set">60s</button><button
+                    id="time90s" class="set">90s</button>
             </section>
             <section id="rules">
                 <h3>Rules</h3>
                 <ul class="rule-list">
-                    <li>To play, click the start button.</li>
+                    <li>Set your difficulty and timer</li>
+                    <br>
+                    <li>To play, click the start button</li>
                     <br>
                     <li>Use <img src="images/179-1791611_wasd-wasd-keys.png" class="wasd-keys-icon" alt="wasd keys" />  to move</li>
                     <br>
@@ -75,6 +84,7 @@
     <audio id="bonk" src="/audio/Bonk - Sound Effect (HD).mp3"></audio>
     <audio id="pop" src="/audio/sound-effect-bottle-cork.mp3"></audio>
     <audio id="button-click" src="/audio/buttonplate-click-minecraft-sound-sound-effect-for-editing.mp3"></audio>
+    <audio id="play-sfx" src="/audio/play-sfx.mp3"></audio>
     <script src="./js/main.js"></script>
     <script src="/js/index.js"></script>
 </body>
