@@ -34,6 +34,7 @@ defeatFanfare.volume = 0.25;
 const buttonClick = document.querySelector("#button-click");
 const playSfx = document.querySelector("#play-sfx");
 playSfx.volume = 0.5;
+const whoosh = document.querySelector("#whoosh-sfx");
 
 //Instancing
 const board = new GameBoard(9, 5);

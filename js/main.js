@@ -212,6 +212,8 @@ class Player {
           break;
       }
       this.detectHit();
+      whoosh.play();
+      whoosh.currentTime = 0;
     }
   }
 
