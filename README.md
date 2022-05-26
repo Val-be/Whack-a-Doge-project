@@ -12,6 +12,14 @@ This is my first project with Ironhack. It's a kind of whack-a-mole where you co
 - Pause and mute buttons
 - Difficulty and time settings
 
+## Technical Challenges
+
+- Generate instances randomly 
+- Deleting said instances
+- Adding CSS animation on part of a model
+- Make a pause feature
+
+
 ## [Demo](https://valer44.github.io/Whack-a-Doge-project/)
 
 ## Next steps
