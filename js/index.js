@@ -26,11 +26,14 @@ const credit = document.querySelector("#credit");
 
 //Audio
 const backgroundMusic = document.querySelector("#background-music");
-backgroundMusic.volume = 0.25;
+backgroundMusic.volume = 0.1;
 const victoryFanfare = document.querySelector("#victory-fanfare");
+victoryFanfare.volume = 0.25;
 const defeatFanfare = document.querySelector("#defeat-fanfare");
+defeatFanfare.volume = 0.25;
 const buttonClick = document.querySelector("#button-click");
 const playSfx = document.querySelector("#play-sfx");
+playSfx.volume = 0.5;
 
 //Instancing
 const board = new GameBoard(9, 5);
@@ -202,6 +205,11 @@ document.addEventListener("keydown", (event) => {
       break;
     case "Enter":
       player.swingBat();
+      break;
+    case "KeyP":
+      game.pause();
+      buttonClick.play();
+      buttonClick.currentTime = 0;
       break;
     default:
       return;

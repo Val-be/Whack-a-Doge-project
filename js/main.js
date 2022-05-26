@@ -118,6 +118,10 @@ class Player {
     this.show();
   }
 
+  //Checks if the player can move
+  //Player cannot move on holes
+  //Player cannot move out of grid border
+  //Player cannot move if the game is paused or hasn't started
   canMove(direction) {
     if (!game.isPaused && game.isStarted) {
       let index = parseInt(this.cell.dataset.index);
@@ -170,10 +174,6 @@ class Player {
             return true;
           }
           return false;
-        // return (
-        //   !(index % board.width === 0) &&
-        //   !board.cells[index - 1].classList.contains("hole")
-        // );
         case "right":
           if (!(index % board.width === board.width - 1)) {
             if (board.cells[index + 1]) {
@@ -186,15 +186,13 @@ class Player {
             return true;
           }
           return false;
-        // return (
-        //   !(index % board.width === board.width - 1) &&
-        //   !board.cells[index + 1].classList.contains("hole")
-        // );
       }
     }
     return false;
   }
 
+  //Launches a rotating animation on the bat using CSS classes
+  //Calls the detectHit() method to know if a Doge has been hit
   swingBat() {
     if (!game.isPaused) {
       switch (this.facedDirection) {
@@ -217,6 +215,9 @@ class Player {
     }
   }
 
+  //Checks if the hole next to the player in the direction it's facing
+  //contains a Doge. If it does, calls the getHit() method on it
+  //Doesn't check if game is paused
   detectHit() {
     if (!game.isPaused) {
       let index = parseInt(this.cell.dataset.index);
@@ -249,14 +250,21 @@ class MoleHole {
     this.generator = null;
   }
 
+  //Same as for player
   show() {
     this.cell.classList.add(this.className);
   }
 
+  //Same
   hide() {
     this.cell.classList.remove(this.className);
   }
 
+  //Creates a Doge in the hole it is called on with a CSS class
+  //and increments the total number of Doges spawned
+  //Only generates if the hole is empty and the game unpaused
+  //Sets the countainsMole attribute to be true for future conditionnal blocks
+  //Also plays a sound effect is game is not muted
   generateMole() {
     if (!this.countainsMole && !game.isPaused) {
       if (game.soundIsActive) {
@@ -272,6 +280,7 @@ class MoleHole {
     }
   }
 
+  //Opposite of precedent
   unpopMole() {
     if (!game.isPaused) {
       this.countainsMole = false;
@@ -281,6 +290,12 @@ class MoleHole {
     }
   }
 
+  //Changes the display of the Doge in the hole to have a
+  //caved-in head
+  //Sets countainsMole to be false to avoid multiple hits connecting
+  //consecutively
+  //Increments score (displayed as bonks on screen) and print it
+  //Also plays a sound effect
   getHit() {
     if (this.countainsMole && !game.isPaused) {
       if (game.soundIsActive) {
@@ -288,18 +303,19 @@ class MoleHole {
         bonk.play();
         bonk.currentTime = 0;
       }
-      //need to add a timer here so the bonked image stays for a few time
-      //also need to make it so the hole cannot be whacked immediately after
       this.countainsMole = false;
       this.hide();
       this.className = "bonked-doge-hole";
       this.show();
       game.score++;
       game.displayScore();
-      // setTimeout(this.unpopMole(), 1000);
     }
   }
 
+  //Sets an interval that has a 1/3 chance to spawn a Doge every
+  //3 seconds
+  //Every 5 seconds the hole is cleared regardless of state
+  //Every second the display of the hole is updated
   startGenerating() {
     let time = 0;
     this.isGenerating = true;
@@ -329,6 +345,7 @@ class MoleHole {
     }, 1000);
   }
 
+  //Clears the interval
   stopGenerating() {
     this.isGenerating = false;
     clearInterval(this.generator);
@@ -341,8 +358,8 @@ class Timer {
     this.timeRemaining = parseInt(game.timeLimit);
   }
 
+  //A standard countdown, nothing special
   startCountingDown() {
-    // this.timeRemaining = parseInt(game.timeLimit);
     let ticks = 0;
     this.interval = setInterval(() => {
       if (!game.isPaused && game.isStarted && !game.isFinished) {
@@ -416,15 +433,15 @@ class Game {
     this.timeLimit = 30;
   }
 
+  //Distributes the holes and make them start generating
+  //Starts the timer
+  //Starts playing the background music
   start() {
     distributeHoles();
     this.isStarted = true;
     this.isFinished = false;
     this.isLost = false;
     this.isWon = false;
-    // moleHoles.forEach((instance) => {
-    //   instance.startGenerating();
-    // });
     delayedStart(moleHoles);
     timer.startCountingDown();
     startButton.textContent = "Reset";
