@@ -212,8 +212,10 @@ class Player {
           break;
       }
       this.detectHit();
-      whoosh.play();
-      whoosh.currentTime = 0;
+      if (game.soundIsActive) {
+        whoosh.play();
+        whoosh.currentTime = 0;
+      }
     }
   }
 
@@ -537,7 +539,6 @@ function fisherYatesShuffle(arr) {
 }
 
 function getRandomSelection(n, array) {
-  // const cloned = Array.from(array);
   const cloned = array.filter((cell) => {
     if (
       parseInt(cell.dataset.index) === 0 ||
@@ -582,14 +583,6 @@ function distributeHoles() {
 }
 
 function delayedStart(holes) {
-  //   holes.forEach((instance) => {
-  //     let rgn = parseInt(1000 + Math.floor(Math.random() * 2000));
-  //     setTimeout(() => {
-  //       if (!game.isStarted) {
-  //         instance.startGenerating();
-  //       }
-  //     }, rgn);
-  //   });
   let ticks = 0;
   let index = 0;
   const interval = setInterval(() => {
